@@ -126,7 +126,7 @@ def send_request(api_v1_endpoint):
     conda_store_endpoint = f"http://{conda_store_svc_name}.{conda_store_svc_namespace}.svc:{conda_store_service_port}/conda-store/api/v1/"
     url = urljoin(conda_store_endpoint, api_v1_endpoint)
 
-    http = urllib3.PoolManager()
+    http = urllib3.PoolManager(cert_reqs='CERT_NONE')
     response = http.request("GET", url, headers={"Authorization": f"Bearer {token}"})
 
     j = json.loads(response.data.decode("UTF-8"))
