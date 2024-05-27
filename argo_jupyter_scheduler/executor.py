@@ -2,6 +2,7 @@ import os
 from typing import Dict, Union
 
 from hera.shared import GlobalConfig
+from hera.shared import global_config
 from hera.workflows import Container, CronWorkflow, Env, Step, Steps, Workflow, script
 from hera.workflows.models import ContinueOn, TTLStrategy, WorkflowStopRequest
 from hera.workflows.service import WorkflowsService
@@ -33,6 +34,7 @@ from argo_jupyter_scheduler.utils import (
 
 
 GlobalConfig.verify_ssl = False
+global_config.verify_ssl = False
 logger = setup_logger(__name__)
 
 DEFAULT_TTL = 600
@@ -287,6 +289,7 @@ class ArgoExecutor(ExecutionManager):
                     when=successful,
                 )
 
+        print(GlobalConfig)
         w.create()
 
         logger.info("workflow created")
